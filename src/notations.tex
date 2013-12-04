@@ -6,10 +6,15 @@
   vectors of dimension $D$ each belonging to a class $c_i \in {1, ..., N}$.
   \item Let $\mu$ be the center of gravity of the whole set $X$.
   \item Let $\mu_c$ be the center of gravity of the vectors from class $c$.
+  \item The mapping function $\varphi$ is defined by:
+  	\begin{align*}
+   		\varphi : \mathbb{R}^D &\to \mathbb{R}^D'\\
+   		x &\mapsto x'
+   	\end{align*}
   \item The kernel function $k$ is defined by:
   	\begin{align*}
    		k : \left(\mathbb{R}^D\right)^2 &\to \mathbb{R}\\
-   		(x_1, x_2) &\mapsto s 
+   		(x_1, x_2) &\mapsto <\phi(x_1), \phi(x_2)>
    	\end{align*}
   \item Let $G$ be the Gramm matrix defined by $G_{i,j} = k(x_i, x_j)$.
   \item Let $S_w$ and $S_b$ respectively be the within class covariance matrix and the between class covariance matrix. 
