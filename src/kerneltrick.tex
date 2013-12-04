@@ -1,0 +1,7 @@
+
+\paragraph{}
+The two previous methods assume that our data are linearly separable in feature space. But what if this is not the case ? It is possible to bypass this limitation by working in a high-dimensional space called \emph{kernel-space}, thanks to a mapping function $\varphi$. The idea is then to use $\varphi(x)$ where we previously used $x$.
+
+\paragraph{}
+Are we done ? Not yet, since the computation of $\varphi(x)$ may be intractable because the \emph{kernel-space} is allowed to have a dimension equal to infinity. To avoid this difficulty, we use what we call the \emph{kernel trick}. Instead of computing $\varphi(x)$, we will use a \emph{kernel function} $k(x, y) = \varphi(x)^t\varphi(y)$ that computes the dot product of $x$ and $y$ in \emph{kernel-space} so that we never have to compute the result of $\varphi$ directly. To use the trick, we must adapt our formules to replace every occurence of $\varphi(x)$ by a dot product with another vector. Let's see what we get with PCA and LDA.
+
