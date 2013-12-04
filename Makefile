@@ -1,9 +1,6 @@
-SRC='src/main.tex'
-CC='pdflatex'
-OUT='kda.pdf'
 
 all:
-	pdflatex ${SRC}
+	make -C src
 
 clean:
-	rm -f *.log *.pdf *.aux
+	make -C src clean
