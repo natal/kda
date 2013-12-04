@@ -7,10 +7,10 @@ are interested in finding complex hidden patterns that are caracterised by non-l
 In order to gain access to these non-linear hidden patterns, the idea is to map the data points into
 a high-dimensional space known as \emph{kernel-space}. The mapping function $\varphi$ carries out
 this task. We can then substitute every $x$ vector by its corresponding $\varphi(x)$ in the PCA and
-LDA formulas.
+LDA equations.
 
 \paragraph{}
-However, the computation of $\varphi(c)$ usually turns out to be intractable because the
+However, the computation of $\varphi(x)$ usually turns out to be intractable because the
 \emph{kernel-space} is allowed to have a dimension equal to infinity. Moreover, in some occurences,
 the $\varphi$ mapping function is unknown in the sense that the only information we have is the
 result of the dot product in kernel space but not the function itself.
