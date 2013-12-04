@@ -19,5 +19,5 @@ result of the dot product in kernel space but not the function itself.
 To avoid this difficulty, we use what is known as the \emph{kernel trick}. Instead of computing
 $\varphi(x)$, we use a \emph{kernel function} $k(x, y) = \varphi(x)^t\varphi(y)$ that computes
 the dot product of $x$ and $y$ in \emph{kernel-space} so that we never have to compute the result of
-$\varphi(x)$ directly. In order to use his trick, we must adapt the PCA and LDA formulas keeping in
+$\varphi(x)$ directly. In order to use this trick, we must adapt the PCA and LDA formulas keeping in
 mind that we can only use kernel-space dot products.
