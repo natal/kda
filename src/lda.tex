@@ -6,44 +6,60 @@ The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis
 A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
 
 \paragraph{}
-As opposed to the PCA, the LDA is a supervised method in the sense that it requires forward knowledge of the class for each data point.
-
-We need to know the labels of the data to proceed to the analysis. LDA first appeared as a method able to work with data divided in two classes, but it is easy to generalize to multi-class configuration.
+As opposed to the PCA, the LDA is a supervised method in the sense that it requires forward
+knowledge of the class for each data point. LDA first appeared as a method able to work with data
+divided in two classes, but it is easy to generalize to a multi-class configuration.
 
 \paragraph{}
-We start by expressing the inter ($S_b$) and intra ($S_w$) class variance as follow:
+When performing an LDA on a set of data we make the basic assumption that the data points follow a
+gaussian distribution.
+
+\paragraph{}
+We start by expressing the inter-class covariance matrix.
 
 \begin{equation*}
-S_b = \frac{1}{N}\sum_{i = 1}^N N_k(m_k - m)(m_k - m)^t
+S_b = \frac{1}{N}\sum_{i = 1}^N N_c(\mu_c - \mu)(\mu_c - \mu)^t
 \end{equation*}
 
-Where $m$ and $m_k$ are respectively the global mean and per-class mean of the data defined as:
+Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the points belonging to
+class $c$,
 
 \begin{align*}
-m &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
-m_k &= \frac{1}{N_k}\sum_{i = 1}^{N_k} x_i^k
+\mu &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
+\mu_c &= \frac{1}{N_c}\sum_{i = 1}^{N_k} x_i^c
 \end{align*}
 
+\paragraph{}
+This is comparable to the classic PCA covariance computation step except we consider a data set
+exclusively composed of the center of each class.
+
+\paragraph{}
+The LDA quantifies the overall within-class scattering by summing together the covariance matrix
+computed inside each class.
+
 \begin{equation*}
-S_w = \sum_{k = 1}^{K}\frac{1}{N_k}\sum_{i = 1}^{N_k} (x_i - m_k)(x_i - m_k)^t
+S_w = \sum_{c = 1}^{C}\frac{1}{N_c}\sum_{i = 1}^{N_c} (x^c_i - \mu_c)(x^c_i - \mu_c)^t
 \end{equation*}
 
 \paragraph{}
-The idea to find the best hyperplan $\bar{w}$ is to \emph{maximize} the quotient:
+Fisher's criterion can be translated into an optimization problem. Since we are aiming at maximizing
+between-class scattering while minimizing within-class variance, we are as a result
+\emph{maximizing} the quotient:
 
 \begin{equation*}
 \boxed{\operatorname*{arg\,max}_w \frac{w^tS_bw}{w^tS_ww}}
 \end{equation*}
 
 \paragraph{}
-To this end, it is sufficient to compute the $d$ biggest eigenvalues of:
+In order to solve the previous optimization problem, it is sufficient to compute the $M$ biggest
+eigenvalues of the following matrix.
 
 \begin{equation*}
 S_w^{-1}S_b
 \end{equation*}
 
 \paragraph{}
-And then to project the data $x$ onto the hyperplan:
+We can finally project $x \in X$ onto $x_p$ laying on the hyperplane simply through:
 
 \begin{equation*}
 x_p = \bar{w}x
