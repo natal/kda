@@ -1,0 +1,66 @@
+
+\paragraph{}
+As for the standard PCA, we must center the vectors of the data set by subtracting the global mean to each one. We must first compute the mean in the kernel-space:
+
+$$\bar{\varphi} = \frac{1}{N}\sum_{i = 1}^{N} \varphi(x_i)$$
+
+This formule is intractable. Fortunately, since what we want to compute is $\varphi(x_i) - \bar{\varphi}$ for every $x_i$, it is sufficient to be able to compute a \emph{distance} in kernel-space. We achieve this as follow:
+
+$$D(\varphi(x), \varphi(y)) = \|\varphi(x) - \varphi(y)\|^2 = k(x, x) - 2k(x, y) + k(y, y)$$
+
+\paragraph{}
+By replacing $\varphi(y)$ by $\bar{\varphi}$ in the previous equation, we obtain:
+
+$$D(\varphi(x), \bar{\varphi}) = k(y, y) - \underbrace{\frac{2}{N}\sum_{i = 1}^N k(y, x_i)}_{\text{mean of a line of G}} + \underbrace{\frac{1}{N^2}\sum_i\sum_j k(x_i, x_j)}_{\text{mean of G}}$$
+
+\paragraph{}
+Let $\Phi$ be the data set centered in kernel-space:
+
+$$\Phi_i = [\varphi(x_i) - \bar{\varphi}] = [D(\varphi(x_i), \bar{\varphi})]$$
+
+\paragraph{}
+The covariance matrix in kernel-space can now be expressed as:
+
+$$S = \Phi\Phi^t$$
+
+\paragraph{}
+The next step is to compute the eigenvectors of $S$, but since its dimension could be $\infty \times \infty$, it is impossible to do. But we can quickly see that the centered Gramm matrix $\bar{K} = \Phi^t\Phi$, and we can prove that $\Phi^t\Phi$ and $\Phi\Phi^t$ have the same eigenvectors:
+
+\begin{align}\label{eq:grammcovar}
+\Phi^t\Phi v &= \lambda v \\
+(\Phi\Phi^t)\Phi v &= \lambda (\Phi v)
+\end{align}
+
+\paragraph{}
+Fortunately, $\bar{K}$ is of dimension $N \times N$, and we can compute its eigenvectors. The expression of $\bar{K}$ is:
+
+\begin{align*}
+\bar{K}_{i, j} &= k(\varphi(x_i) - \bar{\varphi}, \varphi(x_j) - \bar{\varphi}) \\
+&= k(x_i, x_j)
+	- \underbrace{\frac{1}{N}\sum_{k = 1}^N k(x_k, x_j)}_{\text{mean of column of G}}
+    - \underbrace{\frac{1}{N}\sum_{k = 1}^N k(x_i, x_k)}_{\text{mean of line of G}}
+    + \underbrace{\frac{1}{N^2}\sum_k\sum_l k(x_k, x_l)}_{\text{mean of G}}
+\end{align*}
+
+\paragraph{}
+We know from equation (\ref{eq:grammcovar}) that if $(\lambda, v)$ is a couple (eigen value, eigen vector) of $\bar{K}$, then $(\lambda, \Phi v)$ is its counterpart for covariance matrix $S$. Moreover, eigenvectors must be normalized \emph{in kernel-space}, that is:
+
+\begin{align*}
+&\| \Phi v \|^2 = 1 \\
+\Rightarrow\quad &(\Phi v)^t(\Phi v) = 1 \\
+\Rightarrow\quad &v^t\Phi^t\Phi v = 1 \\
+\Rightarrow\quad &v^t \bar{K} v = 1
+\end{align*}
+
+\paragraph{}
+Let then $\alpha = v^t \bar{K} v$, if $v$ is an eigenvector of $\bar{K}$, then the eigenvector $v' = \frac{v}{\sqrt{\alpha}}$ is normalized in kernel-space and $\Phi v'$ is a normalized eigenvector of $S$.
+
+
+\paragraph{}
+The last step is to project our data onto the new space defined by the eigenvectors, that is, project $\varphi(x)$ onto $\Phi v'$. This is done by computing the dot product:
+
+\begin{align*}
+<\varphi(x) - \bar{\varphi}, \Phi v'> &= \varphi(x)^t\Phi v' - \bar{\varphi}^t\Phi v' \\
+&= (\varphi(x) - \bar{\varphi})^t\Phi v' \\
+&= [\bar{K}(x, x_1), \ldots, \bar{K}(x, x_n)] v'
+\end{align*}

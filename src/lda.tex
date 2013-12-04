@@ -1,0 +1,50 @@
+
+\paragraph{}
+The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a classification method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' < D$ according to Fisher's criterion. 
+
+\paragraph{}
+A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
+
+\paragraph{}
+As opposed to the PCA, the LDA is a supervised method in the sense that it requires forward knowledge of the class for each data point.
+
+We need to know the labels of the data to proceed to the analysis. LDA first appeared as a method able to work with data divided in two classes, but it is easy to generalize to multi-class configuration.
+
+\paragraph{}
+We start by expressing the inter ($S_b$) and intra ($S_w$) class variance as follow:
+
+\begin{equation*}
+S_b = \frac{1}{N}\sum_{i = 1}^N N_k(m_k - m)(m_k - m)^t
+\end{equation*}
+
+Where $m$ and $m_k$ are respectively the global mean and per-class mean of the data defined as:
+
+\begin{align*}
+m &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
+m_k &= \frac{1}{N_k}\sum_{i = 1}^{N_k} x_i^k
+\end{align*}
+
+\begin{equation*}
+S_w = \sum_{k = 1}^{K}\frac{1}{N_k}\sum_{i = 1}^{N_k} (x_i - m_k)(x_i - m_k)^t
+\end{equation*}
+
+\paragraph{}
+The idea to find the best hyperplan $\bar{w}$ is to \emph{maximize} the quotient:
+
+\begin{equation*}
+\boxed{\operatorname*{arg\,max}_w \frac{w^tS_bw}{w^tS_ww}}
+\end{equation*}
+
+\paragraph{}
+To this end, it is sufficient to compute the $d$ biggest eigenvalues of:
+
+\begin{equation*}
+S_w^{-1}S_b
+\end{equation*}
+
+\paragraph{}
+And then to project the data $x$ onto the hyperplan:
+
+\begin{equation*}
+x_p = \bar{w}x
+\end{equation*}
