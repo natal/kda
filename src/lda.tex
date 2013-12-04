@@ -1,27 +1,27 @@
 
 \paragraph{}
-The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a classification method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' < D$ according to Fisher's criterion. 
+The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a classification method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' \leq D$ according to Fisher's criterion. 
 
 \paragraph{}
 A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
 
 \paragraph{}
-As opposed to the PCA, the LDA is a supervised method in the sense that it requires forward
-knowledge of the class for each data point. LDA first appeared as a method able to work with data
+As opposed to the PCA, the LDA is a supervised method in the sense that it requires prior
+knowledge of the class for each vector in the data-set. LDA first appeared as a method able to work with data
 divided in two classes, but it is easy to generalize to a multi-class configuration.
 
 \paragraph{}
-When performing an LDA on a set of data we make the basic assumption that the data points follow a
+When performing an LDA on a set of data, we make the basic assumption that the data vectors follow a
 gaussian distribution.
 
 \paragraph{}
-We start by expressing the inter-class covariance matrix.
+We start by expressing the inter-class covariance matrix:
 
 \begin{equation*}
 S_b = \frac{1}{N}\sum_{i = 1}^N N_c(\mu_c - \mu)(\mu_c - \mu)^t
 \end{equation*}
 
-Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the points belonging to
+Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the vectors belonging to
 class $c$,
 
 \begin{align*}
@@ -30,7 +30,7 @@ class $c$,
 \end{align*}
 
 \paragraph{}
-This is comparable to the classic PCA covariance computation step except we consider a data set
+This is comparable to the classic PCA covariance computation step except we consider a data-set
 exclusively composed of the center of each class.
 
 \paragraph{}
@@ -52,7 +52,7 @@ between-class scattering while minimizing within-class variance, we are as a res
 
 \paragraph{}
 In order to solve the previous optimization problem, it is sufficient to compute the $M$ biggest
-eigenvalues of the following matrix.
+eigenvalues of the following matrix:
 
 \begin{equation*}
 S_w^{-1}S_b
