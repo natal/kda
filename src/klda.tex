@@ -90,5 +90,48 @@ with $S_b$.
                                  (\varphi(x_i^c) - \lambda_c)^t
 \end{align*}
 
+Again, we notice that the previous result is a quadratic expression which we will write as:
+
+$$ w^tS_ww = \alpha^tN\alpha $$
+
+The goal is to identify the content of matrix $N$:
+
+\begin{align*}
+  (N)_{n,l} &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c}
+                  \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)\varphi(x_n)^t \\
+            &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c} (\varphi(x_l)^t\varphi(x_i^c) -
+            \varphi(x_l)^t\lambda_c) (\varphi(x_i^c)\varphi(x_n)^t -
+            \lambda_c \varphi(x_n)^t)
+\end{align*}
+
+From there, we need to express matrix $N$ according to the Gramm matrix. We start by noticing that,
+$N$ is a sum of the products between two different matrices:
+
+$$N = \sum_{c=1}^C \frac{1}{N_c} N^c (N^c)^t$$
+
+Where,
+
+\begin{align*}
+  N^c_{l, i} &= \varphi(x_l)^t\varphi(x_i^c) - \varphi(x_l)^t \frac{1}{N_c}\sum_{j=1}^{N_c}
+  \varphi(x_j^c) \\
+             &= k(x_l, x_i^c) - \frac{1}{N_c}\sum_{j=1}^{N_c}k(x_l, x_j^c) \\
+             &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} 1_{(N_c, N)} \\
+             &= G^{X, X_c} (I - \frac{1}{N_c}1_{(N_c, N))
+\end{align*}
+
+With $G^{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
+
+\paragraph{}
+The original maximization problem \ref{maximize} is reformulated as follows:
+
+\begin{equation*}
+\label{maximize2}
+\boxed{\operatorname*{arg\,max}_\alpha \frac{\alpha^t M \alpha}{\alpha^t N \alpha}}
+\end{equation*}
+
+Since $\alpha$ is an eigen vector 
+
+
+
 
 
