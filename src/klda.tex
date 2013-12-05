@@ -1,3 +1,73 @@
 \paragraph{}
-As for the Kernel PCA, we must adapt the equations of LDA to work with the kernel trick.
-% TODO, Benji a toi de jouer ! Tu as pris plus de notes que moi sur les developpements
+The kernel trick can also be applied to the LDA.
+
+\paragraph{}
+The key to adapting the LDA is to notice that an eigenvector $w$ in kernel space can be written as a
+linear combination of all the data points in kernel space.
+
+$$ w = \sum_{i=1}^N \alpha_i \varphi(x_i)$$
+
+\paragraph{}
+From there, we can move on with rewritting the quotient $J = \frac{w^tS_bw}{w^tS_ww}$ which we are
+trying to maximize.
+
+\paragraph{}
+We start with the between-class covarience matrix:
+
+$$w^tS_bw = \left( \sum_{l=1}^N \alpha_l \varphi(x_l)\right)^t
+            \left( \sum_{c=1}^C N_c(\lambda_c - \lambda)(\lambda_c - \lambda)^t\right)
+            \left( \sum_{n=1}^N \alpha_n \varphi(x_n)\right)^t $$
+
+The latter can be rearranged into:
+
+$$w^tS_bw = \sum_{l=1}^N\alpha_l \sum_{n=1}^N \sum_{c =1}^C 
+                \varphi(x_l)^t(\lambda_c - lambda)(\lambda_c - \lambda)^t\varphi(x_n)$$
+
+This can be viewed as the folowing quadratic expression:
+
+$$w^tS_bw = \alpha^tM\alpha$$
+
+Where,
+
+$$ (M)_{l,n} = \sum_{c=1}^C N_c ~\varphi(x_l)^t (\lambda_c - \lambda)(\lambda_c -\lambda)^t
+\varphi(x_n) $$
+$$\alpha = \left( \begin{array}{c}
+                                \alpha_1 \\
+                                ... \\
+                                \alpha_N
+                  \end{array}  \right) $$
+
+Furthermore, we can notice that the $M$ matrix can be broken down into a product of two matrices:
+
+$$ M = M_1M_2 $$
+
+With,
+
+\begin{align*}
+(M_1)_{l, c} &= \varphi(x_l)^t(\lambda_c - \lambda)\\
+             &= (\varphi(x_l)^t\lambda_c -\varphi(x_l)^t\lambda) \\
+             &= \left( \frac{1}{N_c} \sum_{i=1}^{N_c} \varphi(x_l)^t\varphi(x_i^c)\right) -
+                 \frac{1}{N}\sum_{i=1}^N\phi(x_l)^t\phi(x_i) \\
+             &= \frac{1}{N_c} \left(\sum_{i = 1}^{N_c} k(x_l, x_i^c) -
+                \frac{1}{N}\sum_{i=1}^N k(x_l, x_i) \right)\\
+\end{align*}
+
+In addition, we can also notice that:
+
+$$ M_2 = M_1^t $$
+
+\paragraph{}
+A more convenient way of writting $M_1$ is by considering the matrix $\mathbb{I} \in
+\mathcal{M}_{N,C}$ defined by:
+
+$$ (\mathbb{I})_{i, c} = \left\{ \begin{array}{ll}
+                                  1 & \textnormal{if $x_i$ belongs to class $c$} \\
+                                  0 & \textnormal{otherwise}
+                               \end{array}
+                        \right.$$
+And by considering the matrix ${\Huge 1} \in \mathcal{M}_{N,C}$ that is exclusively composed of
+1's.
+We can rewrite the $M$ matrix as:
+
+$$M = G\left( \mathbb{I} - \frac{1}{N} 1\right)\left( \mathbb{I} - \frac{1}{N} 1\right)^tG^t$$
+
