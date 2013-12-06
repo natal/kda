@@ -73,7 +73,7 @@ $$ (\mathds{I})_{i, c} = \left\{ \begin{array}{ll}
                                   0 & \textnormal{otherwise}
                                \end{array}
                         \right.$$
-Also by considering the matrix $\mathds{1} \in \mathcal{B}_{N,C}$ that is exclusively composed of
+Also by considering the matrix $\mathds{1} \in \mathcal{M}_{N,C}$ that is exclusively composed of
 1's.
 We can rewrite the $M$ matrix as:
 
@@ -118,10 +118,10 @@ The goal is to identify the content of matrix $W$:
 \end{align*}
 
 From there, we need to express matrix $N$ according to the Gramm matrix. We start by noticing that,
-$N$ is a sum of the products between two different matrices:
+$N$ is a sum of the products between different matrices:
 
 \begin{equation*}
-W = \sum_{c=1}^C \frac{1}{N_c} W_c (N^c)^t
+W = \sum_{c=1}^C \frac{1}{N_c} W_c (W_c)^t
 \end{equation*}
 
 Where,
@@ -154,13 +154,9 @@ lower dimensional set $X_p$:
                    &= \sum_{i = 1}^N \alpha_i k(x_i, x_j) \\
 \end{align*}
 
-We know that $\varphi(x)$ can be projected to $x_p$ through $x_p = w^t \varphi(x)$. Given the latter
-point we can write:
+We know that $\varphi(x)$ can be projected to $x_p$ through $x_p = w^t \varphi(x)$. Given the
+latter identity, we can write:
 \begin{align*}
 x_p &= \sum_{i = 1}^N \alpha_i k(x_i, x_p) \\
 X_p &= \alpha^t G \\
 \end{align*}
-
-
-
-
