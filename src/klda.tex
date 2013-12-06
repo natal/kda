@@ -26,7 +26,7 @@ w^tS_bw = \left( \sum_{l=1}^N \alpha_l \varphi(x_l)\right)^t
 The latter can be rearranged into:
 
 \begin{equation*}
-w^tS_bw = \sum_{l=1}^N\alpha_l \sum_{n=1}^N \sum_{c =1}^C
+w^tS_bw = \sum_{l=1}^N\alpha_l \sum_{n=1}^N \alpha_n \sum_{c =1}^C
                 \varphi(x_l)^t(\lambda_c - \lambda)(\lambda_c - \lambda)^t\varphi(x_n)
 \end{equation*}
 
@@ -56,13 +56,13 @@ Furthermore, we can notice that the $M$ matrix can be broken down into a product
 \begin{align*}
 (B_1)_{l, c} &= \varphi(x_l)^t(\lambda_c - \lambda)\\
              &= (\varphi(x_l)^t\lambda_c -\varphi(x_l)^t\lambda) \\
-             &= \left( \frac{1}{N_c} \sum_{i=1}^{N_c} \varphi(x_l)^t\varphi(x_i^c)\right) -
+             &= \frac{1}{N_c} \sum_{i=1}^{N_c} \varphi(x_l)^t\varphi(x_i^c) -
                  \frac{1}{N}\sum_{i=1}^N\phi(x_l)^t\phi(x_i) \\
-             &= \frac{1}{N_c} \left(\sum_{i = 1}^{N_c} k(x_l, x_i^c) -
-                \frac{1}{N}\sum_{i=1}^N k(x_l, x_i) \right)\\
+             &= \frac{1}{N_c} \sum_{i = 1}^{N_c} k(x_l, x_i^c) -
+                \frac{1}{N}\sum_{i=1}^N k(x_l, x_i)\\
 \end{align*}
 
-In addition, we can also notice that: $M_2 = M_1^t$.
+In addition, we can also notice that: $B_2 = B_1^t$.
 
 \paragraph{}
 A more convenient way of writting $B_1$ is by considering the matrix $\mathds{I} \in
@@ -110,7 +110,7 @@ w^tS_ww = \alpha^tW\alpha
 The goal is to identify the content of matrix $W$:
 
 \begin{align*}
-  (W)_{n,l} &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c}
+  (W_c)_{n,l} &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c}
                   \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)\varphi(x_n)^t \\
             &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c} (\varphi(x_l)^t\varphi(x_i^c) -
             \varphi(x_l)^t\lambda_c) (\varphi(x_i^c)\varphi(x_n)^t -
@@ -145,15 +145,21 @@ The original maximization problem \ref{eq:maximize} is reformulated as follows:
 \boxed{\operatorname*{arg\,max}_\alpha \frac{\alpha^t B \alpha}{\alpha^t W \alpha}}
 \end{equation*}
 
-Recalling \ref{eq:phibase}, we can infer the following:
+Recalling \ref{eq:phibase}, we can infer the following allowing us to project the set $X$ to the
+lower dimensional set $X_p$:
 
 \begin{align*}
-  w &= \sum_{i=1}^N \alpha_i \varphi(x_i)\\
+  w &= \sum_{i=1}^N \alpha_i \varphi(x_i) = \\
   w^t \varphi(x_j) &= \sum_{i = 1}^N \alpha_i \varphi(x_i)^t \varphi(x_j)\\
                    &= \sum_{i = 1}^N \alpha_i k(x_i, x_j) \\
-  w^t \varphi(X) &=  \alpha^t G \\
 \end{align*}
 
+We know that $\varphi(x)$ can be projected to $x_p$ through $x_p = w^t \varphi(x)$. Given the latter
+point we can write:
+\begin{align*}
+x_p &= \sum_{i = 1}^N \alpha_i k(x_i, x_p) \\
+X_p &= \alpha^t G \\
+\end{align*}
 
 
 
