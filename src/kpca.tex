@@ -1,5 +1,5 @@
 \paragraph{}
-Regarding the PCA, we must first center the data-points by subtracting the global mean to each one.
+Regarding the PCA, we must first center the data vectors by subtracting the global mean to each one.
 Therefore, the first step is to compute the global mean in kernel-space:
 
 $$\lambda = \frac{1}{N}\sum_{i = 1}^{N} \varphi(x_i)$$
@@ -8,19 +8,21 @@ This formula is intractable for the reasons mentioned previously. Fortunately, s
 compute $\varphi(x_i) - \lambda$ for every $x_i$, it is sufficient to be able to compute a
 \emph{distance} in kernel-space. We achieve this as follows:
 
-$$\mathcal{d}(\varphi(x_1), \varphi(x_2)) = \|\varphi(x_1) - \varphi(x_2)\|^2 = k(x_1, _1x) - 2k(x_1, x_2) +
+$$\mathcal{D}(\varphi(x_1), \varphi(x_2)) = \|\varphi(x_1) - \varphi(x_2)\|^2 = k(x_1, _1x) - 2k(x_1, x_2) +
 k(x_2, x_2)$$
 
-\paragraph{} By replacing $\varphi(x_2)$ by $\lambda$ in the previous equation, we obtain:
+\paragraph{}
+By replacing $\varphi(x_2)$ by $\lambda$ in the previous equation, we obtain:
 
-$$\mathcal{d}(\varphi(x), \lambda) = k(x, x) - \underbrace{\frac{2}{N}\sum_{i = 1}^N k(y,
+$$\mathcal{D}(\varphi(x), \lambda) = k(x, x) - \underbrace{\frac{2}{N}\sum_{i = 1}^N k(y,
 x_i)}_{\text{mean of a line of G}} + \underbrace{\frac{1}{N^2}\sum_i\sum_j k(x_i, x_j)}_{\text{mean
 of G}}$$
 
-\paragraph{} Let $\Phi$ be the matrix that contains all the data-set vectors centered in
-kernel-space. The $i$'th column of matrix $\Phi$ is:
+\paragraph{}
+Let $\Phi$ be the matrix that contains all the data-set vectors centered in
+kernel-space. The $i$th column of matrix $\Phi$ is:
 
-$$(\Phi)_i = [\varphi(x_i) - \lambda] = [\mathcal{d}(\varphi(x_i), \lambda)]$$
+$$(\Phi)_i = [\varphi(x_i) - \lambda] = [\mathcal{D}(\varphi(x_i), \lambda)]$$
 
 \paragraph{} The covariance matrix in kernel-space can now be expressed as:
 
@@ -28,38 +30,46 @@ $$S = \Phi\Phi^t$$
 
 \paragraph{} The next step is to compute the eigenvectors of $S$. However, since its dimensions could
 potentially be
-$\infty \times \infty$, it is desireable to avoid such a computation. We can quickly see that the centered Gramm
-matrix can be expressed as $\bar{G} = \Phi^t\Phi$ and prove that $\Phi^t\Phi$ and $\Phi\Phi^t$ have the same
-eigenvectors $v$:
+$\infty \times \infty$, it is desirable to avoid such a computation. We can quickly see that the centered Gramm
+matrix can be expressed as $\xoverline{G} = \Phi^t\Phi$ and prove that $\Phi^t\Phi$ and $\Phi\Phi^t$ have the same
+eigenvectors $v_i$:
 
-\begin{align}\label{eq:grammcovar} \Phi^t\Phi v &= \beta v \\ (\Phi\Phi^t)\Phi v &= \beta (\Phi
-v) \end{align}
+\begin{align}\label{eq:grammcovar}
+\Phi^t\Phi v_i &= \beta v_i \\
+(\Phi\Phi^t)\Phi v_i &= \beta (\Phi v_i)
+\end{align}
 
-\paragraph{} Fortunately, $\bar{G}$ is of dimension $N \times N$, and we can compute its
-eigenvectors because the data-set $X$ is finite. The expression of $\bar{G}$ is:
+\paragraph{} Fortunately, $\xoverline{G}$ is of dimension $N \times N$, and we can compute its
+eigenvectors because the data-set $X$ is finite. The expression of $\xoverline{G}$ is:
 
-\begin{align*} \bar{G}_{i, j} &= k(\varphi(x_i) - \lambda, \varphi(x_j) - \lambda) \\ &=
-k(x_i, x_j) - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_n, x_j)}_{\text{mean of column of G}} -
-\underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_i, x_n)}_{\text{mean of line of G}} +
-\underbrace{\frac{1}{N^2}\sum_n\sum_l k(x_n, x_l)}_{\text{mean of G}} \end{align*}
+\begin{align*}
+\xoverline{G}_{i, j} &= k(\varphi(x_i) - \lambda, \varphi(x_j) - \lambda) \\
+&= k(x_i, x_j) - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_n, x_j)}_{\text{mean of column of G}} - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_i, x_n)}_{\text{mean of line of G}} + \underbrace{\frac{1}{N^2}\sum_n\sum_l k(x_n, x_l)}_{\text{mean of G}}
+\end{align*}
 
 \paragraph{} We know from equation (\ref{eq:grammcovar}) that if $(\beta, v)$ is a couple (eigen
-value, eigen vector) of $\bar{G}$, then $(\beta, \Phi v)$ is its counterpart for covariance matrix
+value, eigen vector) of $\xoverline{G}$, then $(\beta, \Phi v)$ is its counterpart for covariance matrix
 $S$. Moreover, eigenvectors must be normalized \emph{in kernel-space} which translates in the
 following:
 
-\begin{align*} &\| \Phi v \|^2 = 1 \\ \Rightarrow\quad &(\Phi v)^t(\Phi v) = 1 \\ \Rightarrow\quad
-&v^t\Phi^t\Phi v = 1 \\ \Rightarrow\quad &v^t \bar{G} v = 1 \end{align*}
+\begin{align*}
+&\| \Phi v \|^2 = 1 \\
+\Rightarrow\quad &(\Phi v_i)^t(\Phi v) = 1 \\
+\Rightarrow\quad &v^t\Phi^t\Phi v = 1 \\
+\Rightarrow\quad &v^t \xoverline{G} v = 1
+\end{align*}
 
-\paragraph{} We define the scalar $\alpha$ as $\alpha = v^t \bar{G} v$. Since $v$ is an eigenvector
-of $\bar{G}$ the eigenvector $v' = \frac{v}{\sqrt{\alpha}}$ is normalized in kernel-space and $\Phi
+\paragraph{} We define the scalar $\alpha$ as $\alpha = v^t \xoverline{G} v$. Since $v$ is an eigenvector
+of $\xoverline{G}$ the eigenvector $v' = \frac{v}{\sqrt{\alpha}}$ is normalized in kernel-space and $\Phi
 v'$ is a normalized eigenvector of $S$.
 
 
 \paragraph{} The last step is to project the data onto the new space defined by the eigenvectors.
 This is done by projecting $\varphi(x)$ onto $\Phi v'$ which transposes in computing the following
-dot product.
+dot product:
 
-\begin{align*} <\varphi(x) - \lambda, \Phi v'> &= \varphi(x)^t\Phi v' - \lambda^t\Phi v'
-\\ &= (\varphi(x) - \bar{\varphi})^t\Phi v' \\ &= [\bar{G}(x, x_1), \ldots, \bar{G}(x, x_n)] v'
+\begin{align*}
+\langle\varphi(x) - \lambda, \Phi v'\rangle &= \varphi(x)^t\Phi v' - \lambda^t\Phi v' \\
+&= (\varphi(x) - \xoverline{\varphi})^t\Phi v' \\
+&= [\xoverline{G}(x, x_1), \ldots, \xoverline{G}(x, x_n)] v'
 \end{align*}
