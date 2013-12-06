@@ -57,19 +57,19 @@ In addition, we can also notice that:
 $$ M_2 = M_1^t $$
 
 \paragraph{}
-A more convenient way of writting $M_1$ is by considering the matrix $\mathbb{I} \in
+A more convenient way of writting $M_1$ is by considering the matrix $\mathds{I} \in
 \mathcal{M}_{N,C}$ defined by:
 
-$$ (\mathbb{I})_{i, c} = \left\{ \begin{array}{ll}
+$$ (\mathds{I})_{i, c} = \left\{ \begin{array}{ll}
                                   1 & \textnormal{if $x_i$ belongs to class $c$} \\
                                   0 & \textnormal{otherwise}
                                \end{array}
                         \right.$$
-And by considering the matrix $1 \in \mathcal{M}_{N,C}$ that is exclusively composed of
+Also by considering the matrix $\mathds{1} \in \mathcal{M}_{N,C}$ that is exclusively composed of
 1's.
 We can rewrite the $M$ matrix as:
 
-$$M = G\left( \mathbb{I} - \frac{1}{N} 1 \right)\left( \mathbb{I} - \frac{1}{N} 1\right)^tG^t$$
+$$M = G\left( \mathds{I} - \frac{1}{N} \mathds{1} \right)\left( \mathds{I} - \frac{1}{N} \mathds{1}\right)^tG^t$$
 
 \paragraph{}
 We follow by expressing the within-class covariance in kernel space:
@@ -115,8 +115,8 @@ Where,
   N^c_{l, i} &= \varphi(x_l)^t\varphi(x_i^c) - \varphi(x_l)^t \frac{1}{N_c}\sum_{j=1}^{N_c}
   \varphi(x_j^c) \\
              &= k(x_l, x_i^c) - \frac{1}{N_c}\sum_{j=1}^{N_c}k(x_l, x_j^c) \\
-             &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} 1_{(N_c, N)} \\
-             &= G^{X, X_c} (I - \frac{1}{N_c}1_{(N_c, N))
+             &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} \mathds{1}_{(N_c, N)} \\
+             &= G^{X, X_c} (I - \frac{1}{N_c}\mathds{1}_{(N_c, N)})
 \end{align*}
 
 With $G^{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
