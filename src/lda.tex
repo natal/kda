@@ -1,6 +1,6 @@
 
 \paragraph{}
-The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a classification method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' \leq D$ according to Fisher's criterion. 
+The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' \leq D$ according to Fisher's criterion. 
 
 \paragraph{}
 A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
@@ -18,7 +18,7 @@ gaussian distribution.
 We start by expressing the inter-class covariance matrix:
 
 \begin{equation*}
-S_b = \frac{1}{N}\sum_{i = 1}^N N_c(\mu_c - \mu)(\mu_c - \mu)^t
+S_b = \sum_{c = 1}^C N_c(\mu_c - \mu)(\mu_c - \mu)^t
 \end{equation*}
 
 Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the vectors belonging to
@@ -26,7 +26,7 @@ class $c$,
 
 \begin{align*}
 \mu &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
-\mu_c &= \frac{1}{N_c}\sum_{i = 1}^{N_k} x_i^c
+\mu_c &= \frac{1}{N_c}\sum_{i = 1}^{N_c} x_i^c
 \end{align*}
 
 \paragraph{}
@@ -38,7 +38,7 @@ The LDA quantifies the overall within-class scattering by summing together the c
 computed inside each class.
 
 \begin{equation*}
-S_w = \sum_{c = 1}^{C}\frac{1}{N_c}\sum_{i = 1}^{N_c} (x^c_i - \mu_c)(x^c_i - \mu_c)^t
+S_w = \sum_{c = 1}^{C}\sum_{x^c_i \in c} (x^c_i - \mu_c)(x^c_i - \mu_c)^t
 \end{equation*}
 
 \paragraph{}
