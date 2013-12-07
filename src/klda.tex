@@ -129,12 +129,12 @@ Where,
 \begin{align*}
   (W_c)_{l, i} &= \varphi(x_l)^t\varphi(x_i^c) - \varphi(x_l)^t \frac{1}{N_c}\sum_{j=1}^{N_c}\varphi(x_j^c) \\
              &= k(x_l, x_i^c) - \frac{1}{N_c}\sum_{j=1}^{N_c}k(x_l, x_j^c) \\
-   W_c       &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} \mathds{1}_{(N_c, N_c)} \\
-   W_c       &= G^{X, X_c} \left(\textrm{I} - \frac{1}{N_c}\mathds{1}_{(N_c, N_c)}\right)
+   W_c       &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} \mathds{1}_{(N_c, N)} \\
+   W_c       &= G^{X, X_c} \left(\textrm{I} - \frac{1}{N_c}\mathds{1}_{(N_c, N)}\right)
 \end{align*}
 
 With $X_c$ being the data set containing only the vectors of class $x$, $\textrm{I}$ the identity matrix of
-size $N_c \times N_c$ and
+size $N_c \times N$ and
 $G^{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
 
 \paragraph{}
