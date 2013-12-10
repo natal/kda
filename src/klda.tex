@@ -25,7 +25,7 @@ We start with the between-class covarience matrix:
 \begin{equation*}
 w^tS_b^\varphi w = \left( \sum_{l=1}^N \alpha_l \varphi(x_l)\right)^t
             \left( \sum_{c=1}^C N_c(\lambda_c - \lambda)(\lambda_c - \lambda)^t\right)
-            \left( \sum_{n=1}^N \alpha_n \varphi(x_n)\right)^t 
+            \left( \sum_{n=1}^N \alpha_n \varphi(x_n)\right)
 \end{equation*}
 
 The latter can be rearranged into:
@@ -74,19 +74,20 @@ A more convenient way of writting $M_1$ is by considering the matrix $\mathds{I}
 \mathcal{M}_{N,C}$ defined by:
 
 $$ (\mathds{I})_{i, c} = \left\{ \begin{array}{ll}
-                                  \frac{\sqrt{N_c}}{N_c} & \textnormal{if $x_i$ belongs to class $c$} \\
+                                  \frac{1}{\sqrt{N_c}} & \textnormal{if $x_i$ belongs to class $c$} \\
                                   0 & \textnormal{otherwise}
                                \end{array}
                         \right.$$
-Also by considering the matrix $\mathds{1} \in \mathcal{M}_{N,C}$ that is exclusively composed of
-$\frac{\sqrt{N_c}}{N_c}$'s.
+Also by considering the matrix $\mathds{1} \in \mathcal{M}_{N,C}$ that is defined by:
+$$ (\mathds{1})_{i, c} = \sqrt{N_c} $$
 We can rewrite the $M_1$ matrix as:
 
 $$M_1 = G\left( \mathds{I} - \frac{1}{N}\mathds{1} \right)$$
 
 And then $M$ as:
 
-$$M = G\left( \mathds{I} - \frac{1}{N} \mathds{1} \right)\left( \mathds{I} - \frac{1}{N} \mathds{1}\right)^tG^t$$
+$$M = G\left( \mathds{I} - \frac{1}{N} \mathds{1} \right)\left( \mathds{I} - \frac{1}{N}
+\mathds{1}\right)^tG^t$$
 
 \paragraph{}
 We follow by expressing the within-class covariance in kernel space:
@@ -138,13 +139,13 @@ Where,
 \begin{align*}
   (W_c)_{l, i} &= \varphi(x_l)^t\varphi(x_i^c) - \varphi(x_l)^t \frac{1}{N_c}\sum_{j=1}^{N_c}\varphi(x_j^c) \\
              &= k(x_l, x_i^c) - \frac{1}{N_c}\sum_{j=1}^{N_c}k(x_l, x_j^c) \\
-   W_c       &= G^{X, X_c} - \frac{1}{N_c} G^{X, X_c} \mathds{1}_{(N_c, N)} \\
-   W_c       &= G^{X, X_c} \left(\textrm{I} - \frac{1}{N_c}\mathds{1}_{(N_c, N)}\right)
+   W_c       &= G_{X, X_c} - \frac{1}{N_c} G_{X, X_c} \mathds{1}_{(N_c, N)} \\
+   W_c       &= G_{X, X_c} \left(\textrm{I} - \frac{1}{N_c}\mathds{1}_{(N_c, N)}\right)
 \end{align*}
 
 With $X_c$ being the data set containing only the vectors of class $x$, $\textrm{I}$ the identity matrix of
 size $N_c \times N$ and
-$G^{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
+$G_{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
 
 \paragraph{}
 The original maximization problem \ref{eq:maximize} is reformulated as follows:
@@ -163,9 +164,9 @@ lower dimensional set $X_p$:
                    &= \sum_{i = 1}^N \alpha_i k(x_i, x_j) \\
 \end{align*}
 
-We know that $\varphi(x)$ can be projected to $x_p$ through $x_p = w^t \varphi(x)$. Given the
-latter identity, we can write:
+We know that $\varphi(x)$, with $x \in Y$, can be projected to $x_p$ through $x_p = w^t \varphi(x)$.
+Given the latter identity, we can write:
 \begin{align*}
 x_p &= \sum_{i = 1}^N \alpha_i k(x_i, x_p) \\
-X_p &= \alpha^t G \\
+X_p &= \alpha^t G_{X,Y} \\
 \end{align*}
