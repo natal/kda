@@ -93,7 +93,7 @@ The goal is to identify the content of matrix $W$:
 \begin{align*}
   (W_c)_{n,l} &= \sum_{c=1}^C \sum_{i=1}^{N_c}
                   \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)\varphi(x_n)^t \\
-            &= \sum_{c=1}^C \frac{1}{N_c} \sum_{i=1}^{N_c} (\varphi(x_l)^t\varphi(x_i^c) -
+            &= \sum_{c=1}^C \sum_{i=1}^{N_c} (\varphi(x_l)^t\varphi(x_i^c) -
             \varphi(x_l)^t\lambda_c) (\varphi(x_i^c)\varphi(x_n)^t -
             \lambda_c \varphi(x_n)^t)
 \end{align*}
@@ -102,7 +102,7 @@ From there, we need to express matrix $W$ according to the Gramm matrix. We star
 $W$ is a sum of the products between two matrices:
 
 \begin{equation*}
-W = \sum_{c=1}^C \frac{1}{N_c} W_c (W_c)^t
+W = \sum_{c=1}^C W_c (W_c)^t
 \end{equation*}
 
 Where,
