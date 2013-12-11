@@ -6,13 +6,11 @@ The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis
 A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
 
 \paragraph{}
-As opposed to the PCA, the LDA is a supervised method in the sense that it requires prior
-knowledge of the class for each vector in the data-set. LDA first appeared as a method able to work with data
+As opposed to the PCA, the LDA is a supervised method in the sense that it requires prior knowledge of the class for each vector in the data-set. LDA first appeared as a method able to work with data-sets
 divided in two classes, but it is easy to generalize to a multi-class configuration.
 
 \paragraph{}
-When performing an LDA on a set of data, we make the basic assumption that the data vectors follow a
-gaussian distribution.
+When performing a LDA on a set of data, we make the basic assumption that the data vectors follow a gaussian distribution.
 
 \paragraph{}
 We start by expressing the inter-class covariance matrix:
@@ -21,8 +19,7 @@ We start by expressing the inter-class covariance matrix:
 S_b = \sum_{c = 1}^C N_c(\mu_c - \mu)(\mu_c - \mu)^t
 \end{equation*}
 
-Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the vectors belonging to
-class $c$,
+Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the vectors belonging to class $c$:
 
 \begin{align*}
 \mu &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
@@ -38,30 +35,22 @@ The LDA quantifies the overall within-class scattering by summing together the c
 computed inside each class.
 
 \begin{equation*}
-S_w = \sum_{c = 1}^{C}\sum_{x^c_i \in c} (x^c_i - \mu_c)(x^c_i - \mu_c)^t
+S_w = \sum_{c = 1}^{C}\sum_{i = 1}^{N_c} (x^c_i - \mu_c)(x^c_i - \mu_c)^t
 \end{equation*}
 
 \paragraph{}
 Fisher's criterion can be translated into an optimization problem. Since we are aiming at maximizing
-between-class scattering while minimizing within-class variance, we are as a result
-\emph{maximizing} the quotient:
+between-class scattering while minimizing within-class variance, we are as a result looking for $w$ that maximizes the quotient:
 
 \begin{equation}
-\boxed{\operatorname*{arg\,max}_w \frac{w^tS_bw}{w^tS_ww}}
+\operatorname*{arg\,max}_w \frac{w^tS_bw}{w^tS_ww}
 \label{eq:maximize}
 \end{equation}
 
 \paragraph{}
 In order to solve the previous optimization problem, it is sufficient to compute the $M$ biggest
-eigenvalues of the following matrix:
+eigenvalues of the matrix: $ S_w^{-1}S_b $. We can finally project $x \in X$ onto $x_p$ laying on the hyperplane simply through:
 
 \begin{equation*}
-S_w^{-1}S_b
-\end{equation*}
-
-\paragraph{}
-We can finally project $x \in X$ onto $x_p$ laying on the hyperplane simply through:
-
-\begin{equation*}
-x_p = \bar{w}x
+x_p = \xoverline{w}x
 \end{equation*}

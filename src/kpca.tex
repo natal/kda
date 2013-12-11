@@ -1,6 +1,6 @@
 \paragraph{}
-Regarding the PCA, we must first center the data vectors by subtracting the global mean to each one.
-Therefore, the first step is to compute the global mean in kernel-space:
+Regarding the PCA, we must first center the data vectors in kernel-space by subtracting the global mean in kernel-space $\lambda$ to each one.
+Therefore, the first step is to compute $\lambda$:
 
 $$\lambda = \frac{1}{N}\sum_{i = 1}^{N} \varphi(x_i)$$
 
@@ -8,14 +8,18 @@ This formula is intractable for the reasons mentioned previously. Fortunately, s
 compute $\varphi(x_i) - \lambda$ for every $x_i$, it is sufficient to be able to compute a
 \emph{distance} in kernel-space. We achieve this as follows:
 
-$$\mathcal{D}(\varphi(x_1), \varphi(x_2)) = \|\varphi(x_1) - \varphi(x_2)\|^2 = k(x_1, _1x) - 2k(x_1, x_2) +
-k(x_2, x_2)$$
+\begin{align*}
+\mathcal{D}(\varphi(x_1), \varphi(x_2)) &= \|\varphi(x_1) - \varphi(x_2)\|^2 \\
+&= k(x_1, x_1) - 2k(x_1, x_2) +
+k(x_2, x_2)
+\end{align*}
+
 
 \paragraph{}
 By replacing $\varphi(x_2)$ by $\lambda$ in the previous equation, we obtain:
 
 $$\mathcal{D}(\varphi(x), \lambda) = k(x, x) - \underbrace{\frac{2}{N}\sum_{i = 1}^N k(y,
-x_i)}_{\text{mean of a line of G}} + \underbrace{\frac{1}{N^2}\sum_i\sum_j k(x_i, x_j)}_{\text{mean
+x_i)}_{\text{mean of a line of G}} + \underbrace{\frac{1}{N^2}\sum_{i = 1}^{N}\sum_{j = 1}^{N} k(x_i, x_j)}_{\text{mean
 of G}}$$
 
 \paragraph{}
@@ -31,7 +35,7 @@ $$S = \Phi\Phi^t$$
 \paragraph{} The next step is to compute the eigenvectors of $S$. However, since its dimensions could
 potentially be
 $\infty \times \infty$, it is desirable to avoid such a computation. We can quickly see that the centered Gramm
-matrix can be expressed as $\xoverline{G} = \Phi^t\Phi$ and prove that $\Phi^t\Phi$ and $\Phi\Phi^t$ have the same
+matrix can be expressed as $G_\lambda = \Phi^t\Phi$ and prove that $\Phi^t\Phi$ and $\Phi\Phi^t$ have the same
 eigenvectors $v_i$:
 
 \begin{align}\label{eq:grammcovar}
@@ -39,16 +43,15 @@ eigenvectors $v_i$:
 (\Phi\Phi^t)\Phi v_i &= \beta (\Phi v_i)
 \end{align}
 
-\paragraph{} Fortunately, $\xoverline{G}$ is of dimension $N \times N$, and we can compute its
-eigenvectors because the data-set $X$ is finite. The expression of $\xoverline{G}$ is:
+\paragraph{} Fortunately, $G_\lambda$ is of dimension $N \times N$, and we can compute its
+eigenvectors because the data-set $X$ is finite. The expression of $G_\lambda$ is:
 
 \begin{align*}
-\xoverline{G}_{i, j} &= k(\varphi(x_i) - \lambda, \varphi(x_j) - \lambda) \\
-&= k(x_i, x_j) - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_n, x_j)}_{\text{mean of column of G}} - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_i, x_n)}_{\text{mean of line of G}} + \underbrace{\frac{1}{N^2}\sum_n\sum_l k(x_n, x_l)}_{\text{mean of G}}
+(G_\lambda)_{i, j} &= k\left(\varphi(x_i) - \lambda, \varphi(x_j) - \lambda\right) \\
+&= k(x_i, x_j) - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_n, x_j)}_{\text{mean of column of G}} - \underbrace{\frac{1}{N}\sum_{n = 1}^N k(x_i, x_n)}_{\text{mean of line of G}} + \underbrace{\frac{1}{N^2}\sum_{n = 1}^{N}\sum_{l = 1}^{N} k(x_n, x_l)}_{\text{mean of G}}
 \end{align*}
 
-\paragraph{} We know from equation (\ref{eq:grammcovar}) that if $(\beta, v)$ is a couple (eigen
-value, eigen vector) of $\xoverline{G}$, then $(\beta, \Phi v)$ is its counterpart for covariance matrix
+\paragraph{} We know from equation (\ref{eq:grammcovar}) that if $(\beta, v)$ is a couple (eigenvalue, eigenvector) of $G_\lambda$, then $(\beta, \Phi v)$ is its counterpart for covariance matrix
 $S$. Moreover, eigenvectors must be normalized \emph{in kernel-space} which translates in the
 following:
 
@@ -56,11 +59,11 @@ following:
 &\| \Phi v \|^2 = 1 \\
 \Rightarrow\quad &(\Phi v_i)^t(\Phi v) = 1 \\
 \Rightarrow\quad &v^t\Phi^t\Phi v = 1 \\
-\Rightarrow\quad &v^t \xoverline{G} v = 1
+\Rightarrow\quad &v^t G_\lambda v = 1
 \end{align*}
 
-\paragraph{} We define the scalar $\alpha$ as $\alpha = v^t \xoverline{G} v$. Since $v$ is an eigenvector
-of $\xoverline{G}$ the eigenvector $v' = \frac{v}{\sqrt{\alpha}}$ is normalized in kernel-space and $\Phi
+\paragraph{} We define the scalar $\alpha$ as $\alpha = v^t G_\lambda v$. Since $v$ is an eigenvector
+of $G_\lambda$ the eigenvector $v' = \frac{v}{\sqrt{\alpha}}$ is normalized in kernel-space and $\Phi
 v'$ is a normalized eigenvector of $S$.
 
 
@@ -70,6 +73,5 @@ dot product:
 
 \begin{align*}
 \langle\varphi(x) - \lambda, \Phi v'\rangle &= \varphi(x)^t\Phi v' - \lambda^t\Phi v' \\
-&= (\varphi(x) - \xoverline{\varphi})^t\Phi v' \\
-&= [\xoverline{G}(x, x_1), \ldots, \xoverline{G}(x, x_n)] v'
+&= (\varphi(x) - \lambda)^t\Phi v'
 \end{align*}

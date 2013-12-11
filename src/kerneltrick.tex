@@ -4,7 +4,7 @@ is a deep assumption that rarely matches real-life data-sets. When it comes to r
 are interested in finding complex hidden patterns that are caracterised by non-linear properties.
 
 \paragraph{}
-In order to gain access to these non-linear hidden patterns, the idea is to map the data points into
+In order to gain access to these non-linear hidden patterns, the idea is to map the data vectors into
 a high-dimensional space known as \emph{kernel-space}. The mapping function $\varphi$ carries out
 this task. We can then substitute every $x$ vector by its corresponding $\varphi(x)$ in the PCA and
 LDA equations.
@@ -19,5 +19,5 @@ result of the dot product in kernel space but not the function itself.
 To avoid this difficulty, we use what is known as the \emph{kernel trick}. Instead of computing
 $\varphi(x)$, we use a \emph{kernel function} $k(x, y) = \varphi(x)^t\varphi(y)$ that computes
 the dot product of $x$ and $y$ in \emph{kernel-space} so that we never have to compute the result of
-$\varphi(x)$ directly. In order to use this trick, we must adapt the PCA and LDA formulas keeping in
+$\varphi(x)$ directly. In order to use this trick, we must adapt the PCA and LDA formulas, keeping in
 mind that we can only use kernel-space dot products.
