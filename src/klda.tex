@@ -82,8 +82,9 @@ to how $w^tS_bw$ was adapted:
 \begin{align*}
   w^tS_ww &= \left( \sum_{l=1}^N \alpha_l \varphi(x_l)\right)^t
              \left( \sum_{c=1}^C \sum_{i=1}^{N_c} (\varphi(x_i^c) - \lambda_c) (\varphi(x_i^c) - \lambda_c)^t\right) \left( \sum_{n=1}^N \alpha_n \varphi(x_n)\right) \\
-          &= \sum_{l=1}^N \alpha_l \sum_{n=1}^N \alpha_n \sum_{c=1}^C                 \sum_{i=1}^{N_c} (\varphi(x_i^c) - \lambda_c)
-                                 (\varphi(x_i^c) - \lambda_c)^t \\
+          &= \sum_{l=1}^N \alpha_l \sum_{n=1}^N \alpha_n \sum_{c=1}^C
+          \sum_{i=1}^{N_c} \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)
+                                 (\varphi(x_i^c) - \lambda_c)^t  \varphi(x_m)^t\\
 &= \alpha^tW\alpha
 \end{align*}
 
@@ -92,7 +93,7 @@ The goal is to identify the content of matrix $W$:
 
 \begin{align*}
   (W_c)_{n,l} &= \sum_{c=1}^C \sum_{i=1}^{N_c}
-                  \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)\varphi(x_n)^t \\
+                  \varphi(x_l)^t(\varphi(x_i^c) - \lambda_c)(\varphi(x_i^c) - \lambda_c)^t\varphi(x_n)^t \\
             &= \sum_{c=1}^C \sum_{i=1}^{N_c} (\varphi(x_l)^t\varphi(x_i^c) -
             \varphi(x_l)^t\lambda_c) (\varphi(x_i^c)\varphi(x_n)^t -
             \lambda_c \varphi(x_n)^t)
