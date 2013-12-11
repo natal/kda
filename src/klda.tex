@@ -16,7 +16,7 @@ w = \sum_{i=1}^N \alpha_i \varphi(x_i)
 \end{equation}
 
 \paragraph{}
-From there, we can move on with rewritting the quotient $J = \frac{w^tS_b^\varphi w}{w^tS_w^\varphi w}$ which we are
+From there, we can move on with rewriting the quotient $J = \frac{w^tS_b^\varphi w}{w^tS_w^\varphi w}$ which we are
 trying to maximize. We start with the between-class covarience matrix:
 
 \begin{align*}
@@ -115,23 +115,23 @@ Where,
    W_c       &= G_{X, X_c} \left(\textrm{I} - \frac{1}{N_c}\mathds{1}_{(N_c, N)}\right)
 \end{align*}
 
-With $X_c$ being the data set containing only the vectors of class $x$, $\textrm{I}$ the identity matrix of
+With $X_c$ being the data set containing only the vectors of class $c$, $\textrm{I}$ the identity matrix of
 size $N_c \times N$ and
-$G_{X, X_c}$ being the Gramm matrix of data set $X$ against data set $X_c$.
+$G_{X, X_c}$ being the Gramm matrix of data set $X$ against data-set $X_c$.
 
 \paragraph{}
-The original maximization problem \ref{eq:maximize} is reformulated as follows:
+The original maximization problem (\ref{eq:maximize}) is reformulated as follows:
 
 \begin{equation*}
 \label{eq:maximize2}
-\boxed{\operatorname*{arg\,max}_\alpha \frac{\alpha^t M \alpha}{\alpha^t W \alpha}}
+\operatorname*{arg\,max}_\alpha \frac{\alpha^t M \alpha}{\alpha^t W \alpha}
 \end{equation*}
 
-Recalling \ref{eq:phibase}, we can infer the following allowing us to project the set $X$ to the
+Recalling equation (\ref{eq:phibase}), we can infer the following allowing us to project the set $X$ to the
 lower dimensional set $X_p$:
 
 \begin{align*}
-  w &= \sum_{i=1}^N \alpha_i \varphi(x_i) = \\
+  w &= \sum_{i=1}^N \alpha_i \varphi(x_i) \\
   w^t \varphi(x_j) &= \sum_{i = 1}^N \alpha_i \varphi(x_i)^t \varphi(x_j)\\
                    &= \sum_{i = 1}^N \alpha_i k(x_i, x_j) \\
 \end{align*}
