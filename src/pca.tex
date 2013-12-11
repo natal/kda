@@ -1,20 +1,20 @@
 
 \paragraph{}
-The goal of the Principal Component Analysis (PCA) is to \emph{linearly} decorelate the data in $X$ by projecting each $x_i$, regardless of its class on hyperplane most representative of the variance of the data-set.
+The goal of the Principal Component Analysis (PCA) is to \emph{linearly} decorelate the data in $X$ by projecting each $x_i \in X$, regardless of its class on the hyperplane most representative of the variance of the data-set.
 
 \paragraph{}
-We first compute the covariance matrix for the whole data set (note that each vector is centered by subtracting the global mean $\mu$):
+We first compute the covariance matrix for the whole centered data-set $X_\mu$, where $\mu$ has be subtracted from each column of $X$:
 
-$$ S = \sum_{i = 1}^N (x_i - \mu)(x_i - \mu)^t $$
-
-\paragraph{}
-We notice that, $S$ has dimensions $N \times N$ because it represents the covariance of the data in \emph{feature space}.
+$$ S = X_\mu X_\mu ^t$$
 
 \paragraph{}
-Next, we compute the eigen values and vectors of matrix $S$ and sort them in descent order based on their respective eigen values.
+We notice that $S$ has dimensions $N \times N$ because it represents the covariance of the data in \emph{feature space}.
 
 \paragraph{}
-The first $M \in \{1, \ldots, N\}$ eigen vectors, also called factorial axes, define the hyperplane on which to project the original data.
+Next, we compute the eigenvalues and eigenvectors of matrix $S$ and sort them in descending order based on their respective eigenvalues.
+
+\paragraph{}
+The first $M$ eigenvectors, also called factorial axes, define the hyperplane on which to project the original data.
 
 \paragraph{}
 The data $X$ is projected onto the hyperplane using the projection matrix of size $D \times M$:
@@ -24,6 +24,6 @@ V_1 & \cdots & V_M \\
  &  &  \end{array} \right) $$ 
 
 \paragraph{}
-For an other given set $X'$ containing vectors taken from the same distribution as the vectors of $X$, we can decorelate $X'$ using P with:
+For another given set $X'$ containing vectors taken from the same distribution as the vectors of $X$, we can decorelate $X'$ using P with:
 
 $$ X'_p = PX'$$
