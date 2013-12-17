@@ -1,17 +1,17 @@
 
 \paragraph{}
-The goal of the Principal Component Analysis (PCA) is to \emph{linearly} decorelate the data in $X$ by projecting each $x_i \in X$, regardless of its class on the hyperplane most representative of the variance of the data-set.
+The goal of the Principal Component Analysis (PCA) is to \emph{linearly} decorelate the data in $X$ by projecting each $x_i \in X$, regardless of its class on the hyperplane most representative of the variance of the dataset.
 
 \paragraph{}
-We first compute the covariance matrix for the whole centered data-set $X_\mu$, where $\mu$ has be subtracted from each column of $X$:
+We first compute the covariance matrix for the whole centered dataset $X_\mu$, where $\mu$ has be subtracted from each column of $X$:
 
 $$ S = X_\mu X_\mu ^t$$
 
 \paragraph{}
-We notice that $S$ has dimensions $N \times N$ because it represents the covariance of the data in \emph{feature space}.
+We notice that $S$ has dimensions $F \times F$ because it represents the covariance of the data in \emph{feature space}.
 
 \paragraph{}
-Next, we compute the eigenvalues and eigenvectors of matrix $S$ and sort them in descending order based on their respective eigenvalues.
+Next, we compute the eigenvalues and eigenvectors of the matrix $S$ and sort them in descending order based on their respective eigenvalues.
 
 \paragraph{}
 The first $M$ eigenvectors, also called factorial axes, define the hyperplane on which to project the original data.
@@ -26,4 +26,4 @@ V_1 & \cdots & V_M \\
 \paragraph{}
 For another given set $X'$ containing vectors taken from the same distribution as the vectors of $X$, we can decorelate $X'$ using P with:
 
-$$ X'_p = PX'$$
+$$ X'_p = P^tX'$$

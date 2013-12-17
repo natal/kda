@@ -1,12 +1,12 @@
 
 \paragraph{}
-The Linear Discriminant Analysis (LDA) also called Fisher's disciminant analysis (FDA) is a method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' \leq D$ according to Fisher's criterion. 
+The Linear Discriminant Analysis (LDA) also called Fisher's discriminant analysis (FDA) is a method that projects data living in $D$ dimensions onto a hyperplane of dimension $D'$ with $D' \leq D$ according to Fisher's criterion. 
 
 \paragraph{}
 A projection that satisfies the Fisher's criterion is a projection that maximizes the distance between the means of the two classes while minimizing the covariance within each class.
 
 \paragraph{}
-As opposed to the PCA, the LDA is a supervised method in the sense that it requires prior knowledge of the class for each vector in the data-set. LDA first appeared as a method able to work with data-sets
+As opposed to the PCA, the LDA is a supervised method in the sense that it requires prior knowledge of the class for each vector in the dataset. LDA first appeared as a method able to work with datasets
 divided in two classes, but it is easy to generalize to a multi-class configuration.
 
 \paragraph{}
@@ -19,7 +19,7 @@ We start by expressing the inter-class covariance matrix:
 S_b = \sum_{c = 1}^C N_c(\mu_c - \mu)(\mu_c - \mu)^t
 \end{equation*}
 
-Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of the vectors belonging to class $c$:
+Where $\mu$ is the center of the whole dataset $X$ and $\mu_c$ the center of the vectors belonging to class $c$:
 
 \begin{align*}
 \mu &= \frac{1}{N}\sum_{i = 1}^{N} x_i \\
@@ -27,7 +27,7 @@ Where $\mu$ is the center of the whole data-set $X$ and $\mu_c$ the center of th
 \end{align*}
 
 \paragraph{}
-This is comparable to the classic PCA covariance computation step except we consider a data-set
+This is comparable to the classic PCA covariance computation step except we consider a dataset
 exclusively composed of the center of each class.
 
 \paragraph{}
@@ -48,8 +48,11 @@ between-class scattering while minimizing within-class variance, we are as a res
 \end{equation}
 
 \paragraph{}
-In order to solve the previous optimization problem, it is sufficient to compute the $M$ biggest
-eigenvalues of the matrix: $ S_w^{-1}S_b $. We can finally project $x \in X$ onto $x_p$ laying on the hyperplane simply through:
+In order to solve the previous optimization problem, it is sufficient to
+compute the $M$ biggest eigenvalues of the matrix: $ S_w^{-1}S_b $. Let
+$\xoverline{w}$ be the matrix which columns are given by the eigenvectors
+associated to those eigenvalues. We can finally project $x \in X$ onto $x_p$
+laying on the hyperplane simply through:
 
 \begin{equation*}
 x_p = \xoverline{w}x
